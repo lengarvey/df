@@ -9,6 +9,8 @@ brew "thefuck"
 brew "zoxide"
 brew "libyaml"
 brew "zlib"
+brew "neovim"
+
 cask "1password"
 cask "1password-cli"
 cask "adobe-creative-cloud"
