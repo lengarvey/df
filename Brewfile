@@ -13,6 +13,7 @@ brew "neovim"
 brew "jq"
 brew "httpie"
 brew "ripgrep"
+brew "gh"
 
 cask "1password"
 cask "1password-cli"

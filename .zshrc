@@ -86,3 +86,5 @@ source <(fzf --zsh)
 
 alias cat="bat"
 eval $(thefuck --alias)
+
+eval "$(mise activate zsh)"
