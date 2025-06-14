@@ -12,7 +12,7 @@ export EDITOR=vim
 
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
+# source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
 
 autoload -Uz compinit
 compinit
@@ -51,12 +51,10 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && . "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
 [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && . "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
-# moar config
-source ~/.myrc
-# . "$HOME/.rea-cli/rea-shell-init.sh"
-
-# bun completions
-[ -s "/Users/leonard.garvey/.bun/_bun" ] && source "/Users/leonard.garvey/.bun/_bun"
+if [[ -f "~/.myrc" ]]; then
+    # computer specific config
+    source ~/.myrc
+fi
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
@@ -77,8 +75,8 @@ bindkey "^[[A" history-search-backward
 bindkey "^[[B" history-search-forward
 
 
-source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+# source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 alias ls="eza --oneline --color=always --no-filesize --icons=always --group-directories-first"
 alias cd="z"
@@ -87,5 +85,4 @@ eval "$(zoxide init zsh)"
 source <(fzf --zsh)
 
 alias cat="bat"
-. "$HOME/.rea-cli/rea-shell-init.sh"
 eval $(thefuck --alias)
