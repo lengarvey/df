@@ -1,18 +1,63 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 # exports
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export EDITOR=vim
 
 eval "$(/opt/homebrew/bin/brew shellenv)"
+eval "$(starship init zsh)"
 
-# source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
+precmd_functions=(zvm_init "${(@)precmd_functions:#zvm_init}")
+precmd_functions+=(set-long-prompt)
+zvm_after_init_commands+=("zle -N zle-line-finish; zle-line-finish() { set-short-prompt }")
+
+set-long-prompt() {
+    PROMPT=$(starship prompt)
+    RPROMPT=""
+}
+
+export COLUMNS=$(($COLUMNS + ($COLUMNS*0.1)))
+set-short-prompt() {
+    # setting this doesn't seem to actually work
+    PROMPT="$(STARSHIP_KEYMAP=${KEYMAP:-viins} starship module character)"
+    RPROMPT=$'%{\e[999C%}\e[8D%F{8}%*%f ' # remove if you don't want right prompt
+    zle .reset-prompt 2>/dev/null # hide the errors on ctrl+c
+}
+
+zle-keymap-select() {
+    set-short-prompt
+}
+zle -N zle-keymap-select
+
+zle-line-finish() { set-short-prompt }
+zle -N zle-line-finish
+
+trap 'set-short-prompt; return 130' INT
+
+# try to fix vi mode indication (not working 100%)
+zvm_after_init_commands+=('
+  function zle-keymap-select() {
+    if [[ ${KEYMAP} == vicmd ]] ||
+       [[ $1 = "block" ]]; then
+      echo -ne "\e[1 q"
+      STARSHIP_KEYMAP=vicmd
+    elif [[ ${KEYMAP} == main ]] ||
+         [[ ${KEYMAP} == viins ]] ||
+         [[ ${KEYMAP} = "" ]] ||
+         [[ $1 = "beam" ]]; then
+      echo -ne "\e[5 q"
+      STARSHIP_KEYMAP=viins
+    fi
+    zle reset-prompt
+  }
+  zle -N zle-keymap-select
+
+  # Ensure vi mode is set
+  zle-line-init() {
+    zle -K viins
+    echo -ne "\e[5 q"
+  }
+  zle -N zle-line-init
+')
 
 autoload -Uz compinit
 compinit
@@ -22,46 +67,16 @@ source "${HOME}/.zgen/zgen.zsh"
 
 # if the init script doesn't exist
 if ! zgen saved; then
-
   # specify plugins here
-  # zgen oh-my-zsh
 
   zgen load 'lengarvey/git'
-  # zgen load 'lengarvey/chruby-direnv'
-  zgen load romkatv/powerlevel10k powerlevel10k
-
-  # zgen oh-my-zsh themes/apple
-  # generate the init script from plugins above
   zgen save
 fi
-
-
-
-# Ruby
-#source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
-#chruby ruby-3.0.1
-
-# Python
-# if command -v pyenv 1>/dev/null 2>&1; then
-#  eval "$(pyenv init -)"
-#fi
-
-# JS
-export NVM_DIR="$HOME/.nvm"
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && . "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && . "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 if [[ -f "~/.myrc" ]]; then
     # computer specific config
     source ~/.myrc
 fi
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 HISTFILE=$HOME/.zhistory
 SAVEHIST=1000
@@ -73,10 +88,6 @@ setopt hist_verify
 
 bindkey "^[[A" history-search-backward
 bindkey "^[[B" history-search-forward
-
-
-# source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-# source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 alias ls="eza --oneline --color=always --no-filesize --icons=always --group-directories-first"
 alias cd="z"
