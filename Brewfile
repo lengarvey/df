@@ -19,6 +19,8 @@ brew "fx"
 brew "tldr"
 brew "wget"
 brew "starship"
+brew "nushell"
+
 
 cask "1password"
 cask "1password-cli"
