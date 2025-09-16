@@ -17,7 +17,8 @@
 # You can remove these comments if you want or leave
 # them for future reference.
 
-$env.PATH = ($env.PATH | append "/opt/homebrew/bin")
+$env.PATH = ($env.PATH | prepend "/opt/homebrew/bin")
+$env.EDITOR = "nvim"
 
 mkdir ($nu.data-dir | path join "vendor/autoload")
 starship init nu | save -f ($nu.data-dir | path join "vendor/autoload/starship.nu")
