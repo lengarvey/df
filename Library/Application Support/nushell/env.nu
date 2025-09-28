@@ -21,7 +21,7 @@
 $env.PATH = ($env.PATH | append "/opt/homebrew/bin")
 
 # hook up zoxide
-zoxide init nushell | save -f ~/.zoxide.nu
+zoxide init nushell --cmd cd | save -f ~/.zoxide.nu
 
 # activate mise
 let mise_path = $nu.default-config-dir | path join mise.nu
