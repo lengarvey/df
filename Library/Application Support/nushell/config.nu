@@ -27,6 +27,7 @@ alias o = ^open
 alias cat = bat
 alias g = git
 alias gst = git status
+alias vim = nvim
 
 def ggpush [remote?: string = "origin"] {
   git push ($remote) (git branch --show-current)
