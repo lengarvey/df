@@ -46,4 +46,6 @@ config.keys = {
   {key="Enter", mods="SHIFT", action=wezterm.action{SendString="\x1b\r"}},
 }
 
+config.default_prog = { '/opt/homebrew/bin/nu' }
+
 return config

@@ -3,10 +3,11 @@
 	email = 724914+lengarvey@users.noreply.github.com
 	# public privacy
 	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID8wcRW/Iq/6eAY+4t+5cuE+rn+k+AP17ntsgA/lcVOy
-[includeIf "gitdir:~/dev/rea/"]
-	path = ~/dev/rea/.gitconfig
+[includeIf "gitdir:~/dev/doshii"]
+	path = ~/dev/doshii/.gitconfig
+	excludesfile = ~/dev/doshii/.gitignore
 [core]
-	excludesfile = ~/.gitignore
+	excludesfile = ~/dev/doshii/.gitignore
 	editor = nvim
 [alias]
 	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
