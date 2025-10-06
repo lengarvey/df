@@ -18,7 +18,7 @@
 # them for future reference.
 
 # make homebrew work
-$env.PATH = ($env.PATH | append "/opt/homebrew/bin")
+$env.PATH = ($env.PATH | append "/opt/homebrew/bin" | append "/opt/homebrew/opt/postgresql@18/bin")
 
 # hook up zoxide
 zoxide init nushell --cmd cd | save -f ~/.zoxide.nu

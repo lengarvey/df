@@ -26,6 +26,9 @@ brew "postgresql@18"
 brew "valkey"
 brew "awscli"
 brew "fd"
+brew "yq"
+brew "bash"
+brew "docker-credential-helper-ecr"
 
 
 cask "1password"

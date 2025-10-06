@@ -1,1 +1,7 @@
 .DS_Store
+.config/github-copilot/
+.config/raycast/
+.config/thefuck/
+.config/zed/
+Library/Application Support/nushell/history.txt
+Library/Application Support/nushell/vendor/

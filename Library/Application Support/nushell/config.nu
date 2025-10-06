@@ -20,6 +20,8 @@
 $env.PATH = ($env.PATH | prepend "/opt/homebrew/bin")
 $env.EDITOR = "nvim"
 
+$env.config.history.max_size = 1000
+
 mkdir ($nu.data-dir | path join "vendor/autoload")
 starship init nu | save -f ($nu.data-dir | path join "vendor/autoload/starship.nu")
 
