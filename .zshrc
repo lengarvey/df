@@ -73,7 +73,9 @@ if ! zgen saved; then
   zgen save
 fi
 
-if [[ -f "~/.myrc" ]]; then
+    echo "trying to loading myrc"
+if [[ -f "$HOME/.myrc" ]]; then
+    echo "loading myrc"
     # computer specific config
     source ~/.myrc
 fi
@@ -91,6 +93,7 @@ bindkey "^[[B" history-search-forward
 
 alias ls="eza --oneline --color=always --no-filesize --icons=always --group-directories-first"
 alias cd="z"
+alias vim="nvim"
 
 eval "$(zoxide init zsh)"
 source <(fzf --zsh)
