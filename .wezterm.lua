@@ -76,7 +76,11 @@ config.window_background_opacity = 0.95
 config.macos_window_background_blur = 17
 
 config.keys = {
-	{ key = "Enter", mods = "SHIFT", action = wezterm.action({ SendString = "\x1b\r" }) },
+	{
+		key = "Enter",
+		mods = "SHIFT",
+		action = wezterm.action({ SendString = "\x1b\r" }),
+	},
 }
 
 -- config.default_prog = { '/opt/homebrew/bin/nu' }

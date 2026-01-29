@@ -102,3 +102,4 @@ alias cat="bat"
 eval $(thefuck --alias)
 
 eval "$(mise activate zsh)"
+export PATH="$HOME/.local/bin:$PATH"
